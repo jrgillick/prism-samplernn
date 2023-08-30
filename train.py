@@ -47,6 +47,7 @@ SAMPLING_TEMPERATURE = [0.95]
 SEED_OFFSET = 0
 MAX_GENERATE_PER_EPOCH = 1
 VAL_FRAC = 0.1
+AUGMENT = False
 
 
 def get_arguments():
@@ -125,6 +126,8 @@ def get_arguments():
                                                         # We use a '%' sign in the help string, which argparse complains about if not escaped with another '%' sign. See: https://stackoverflow.com/a/21168121/795131.
     parser.add_argument('--val_frac',                   type=float, default=VAL_FRAC,
                                                         help='Fraction of the dataset to be set aside for validation, rounded to the nearest multiple of the batch size. Defaults to 0.1, or 10%%.')
+    parser.add_argument('--augment',                    type=check_bool, default=AUGMENT,
+                                                        help='Whether to augment audio data during training.')
     return parser.parse_args()
 
 # Optimizer factory adapted from WaveNet
@@ -248,7 +251,9 @@ def main():
     #val_batch_size = min(args.batch_size, len(val_split))
 
     train_dataset = get_dataset(train_split, num_epochs, args.batch_size, seq_len, overlap,
-                                drop_remainder=True, q_type=q_type, q_levels=q_levels)
+                                drop_remainder=True, q_type=q_type, q_levels=q_levels, 
+                                augment=args.augment, sr=args.sample_rate)
+
 
     val_dataset = get_dataset(val_split, 1, args.batch_size, seq_len, overlap, shuffle=False,
                               drop_remainder=True, q_type=q_type, q_levels=q_levels)

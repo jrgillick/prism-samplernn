@@ -56,9 +56,10 @@ def get_subseq(dataset, batch_size, seq_len, overlap, q_type, q_levels):
             y = x[:, overlap : overlap+seq_len]
             yield (x, y)
 
-def get_dataset(files, num_epochs, batch_size, seq_len, overlap, drop_remainder=False, shuffle=True, q_type='mu-law', q_levels=256):
+def get_dataset(files, num_epochs, batch_size, seq_len, overlap, drop_remainder=False, shuffle=True, q_type='mu-law', q_levels=256,
+                augment=False, sr=None):
     dataset = tf.data.Dataset.from_generator(
-        lambda: load_audio(files, shuffle=shuffle),
+        lambda: load_audio(files, shuffle=shuffle, augment=augment, sr=sr),
         output_types=tf.float32,
         output_shapes=((None, 1))
     )

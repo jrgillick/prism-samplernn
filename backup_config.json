@@ -1,0 +1,43 @@
+
+
+// Current guess at something between the two options below
+
+{
+    "seq_len": 1024,
+    "frame_sizes": [8,32],
+    "dim": 1024,
+    "rnn_type": "gru",
+    "num_rnn_layers": 2,
+    "q_type": "mu-law",
+    "q_levels": 256,
+    "emb_size": 256
+}
+
+/*
+// Recommended by prism-samplernn author in github issue
+// https://github.com/rncm-prism/prism-samplernn/issues/21
+{
+    "seq_len": 512,
+    "frame_sizes": [2,8],
+    "dim": 1024,
+    "rnn_type": "gru",
+    "num_rnn_layers": 1,
+    "q_type": "mu-law",
+    "q_levels": 256,
+    "emb_size": 256
+}
+*/
+
+/*
+// From original code 
+{
+    "seq_len": 1024,
+    "frame_sizes": [16,64],
+    "dim": 1024,
+    "rnn_type": "gru",
+    "num_rnn_layers": 4,
+    "q_type": "mu-law",
+    "q_levels": 256,
+    "emb_size": 256
+}
+*/
